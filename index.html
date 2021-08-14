@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Online Currency Converter</title>
+        <link rel="shortcut icon" href="images/converterlogo.png" type="image/png">
+		<script src="https://use.fontawesome.com/d0c490655e.js"></script>
+		<link rel="stylesheet" href="css/styles.css" />
+	</head>
+	<body>
+        <div id="loader-wrapper">
+            <div id="top-loader">
+                <div></div>
+                <div></div>
+            </div>
+            <div id="bottom-loader">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div id="main-container">
+            <header>
+                <div id="cont-logo">
+                    <a href="index.html"><span id="logo"><img src="./images/converterlogo.png" alt="Converter Logo"/></span></a>
+                    <h4>Currency Converter</h4>
+                </div>
+                <div id="cont-date"><small id="date"></small></div>
+            </header>
+            <main>
+                <section class="app-section" id="cont-computation">
+                    <div id="cont-outer-input">
+                        <div class="cont-input">
+                            <div class="cont-label"><label for="amount">Amount:</label></div><div  class="cont-user-input"><input type="text" class="user-input" id="amount" value="1"/></div>
+                        </div>
+                        <div class="cont-input">
+                            <div class="cont-label"><label for="from-currency">From:</label></div>
+                            <div class="cont-user-input">
+                                    <select name="fromcurrency" class="user-input" id="from-currency"></select>
+                            </div>
+                        </div>
+                        <button type="button" id="btn-change-currency"><i class="fa fa-long-arrow-up arrow"></i><i class="fa fa-long-arrow-down arrow"></i></button>
+                        <div class="cont-input">
+                            <div class="cont-label"><label for="to-currency">To:</label></div>
+                            <div class="cont-user-input">
+                                <select name="tocurrency" class="user-input" id="to-currency"></select>
+                            </div>
+                        </div>
+                        <div id="cont-convert-button"><button id="btn-convert">Convert</button></div>
+                    </div>
+                    <div id="cont-output">
+                            <p id="from"></p>
+                            <p>=</p>
+                            <p id="to"></p>
+                    </div>
+                </section>
+                <section class="app-section" id="cont-further-info">
+                    <h4 id="further-info-heading">Conversion from US Dollar to Nigerian Naira</h4>
+                    <article id="conversion-info">
+                        
+                    </article>
+                </section>
+            </main>
+            <footer>
+                <p><small>Designed by <span id="myname">Omololu Jumat</span> &copy; 2021</small></p>
+            </footer>
+        </div>
+        <script src="js/script.js"></script>
+    </body>
+</html>
