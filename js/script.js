@@ -44,6 +44,7 @@ const getOtherInfoAPI = function(fromID,toID,amount)
 	fetch(API_URL_CONVERT)
 	.then( response =>response.json())
 	.then((data)=>{
+		_("#btn-convert").style.opacity = "1.0";
 		_("#loader-wrapper").style.display = "none";
 		_("#cont-output").style.display = "flex";
 		_("#cont-further-info").style.display = "flex";
@@ -97,6 +98,7 @@ _("#btn-convert").addEventListener("click", ()=>{
 
 	let amount = Number(_("#amount").value);
 	_("#conversion-info").innerHTML = "";
+	_("#btn-convert").style.opacity = "0.1";
 	_("#further-info-heading").textContent = `Conversion from ${fromCurrency[1].trim()} to ${toCurrency[1].trim()}`
 	if(amount > 0)
 	{
