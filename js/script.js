@@ -5,7 +5,7 @@ const renderCurrencyAPI = function()
 {
 	_("#from-currency").innerHTML = "";
 	_("#to-currency").innerHTML = "";
-	const API_URL_CURRENCIES = 'https://free.currconv.com/api/v7/currencies?apiKey=c18676c72ff0fe4557d1';
+	const API_URL_CURRENCIES = 'https://free.currconv.com/api/v7/currencies?apiKey=e0e36f9592f91d861b6d';
 	fetch(API_URL_CURRENCIES)
 	.then( response => response.json())
 	.then((data) => {
@@ -40,7 +40,7 @@ const getOtherInfoAPI = function(fromID,toID,amount)
 	_("#loader-wrapper").style.display = "flex";
 	const conversion = [1,5,10,25,50,100,500,1000,5000,10000,50000];
 	let query = fromID+"_"+toID;
-	const API_URL_CONVERT = 'https://free.currconv.com/api/v7/convert?q='+query+'&compact=ultra&apiKey=c18676c72ff0fe4557d1';
+	const API_URL_CONVERT = 'https://free.currconv.com/api/v7/convert?q='+query+'&compact=ultra&apiKey=e0e36f9592f91d861b6d';
 	fetch(API_URL_CONVERT)
 	.then( response =>response.json())
 	.then((data)=>{
