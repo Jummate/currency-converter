@@ -5,28 +5,27 @@ const renderCurrencyAPI = function()
 {
 	_("#from-currency").innerHTML = "";
 	_("#to-currency").innerHTML = "";
-	const API_URL_CURRENCIES = 'https://free.currconv.com/api/v7/currencies?apiKey=e0e36f9592f91d861b6d';
+	const API_URL_CURRENCIES = 'https://api.exchangerate.host/symbols/';
 	fetch(API_URL_CURRENCIES)
 	.then( response => response.json())
 	.then((data) => {
-		const result = Object.values(data);
-		const allCurrency = Object.values(result[0]);
-		for(let currency of allCurrency)
+		const result = Object.values(data.symbols);
+		for(let currency of result)
 		{
-			if(currency.id === "USD")
+			if(currency.code === "USD")
 			{
-				_("#from-currency").innerHTML += `<option value=${currency.id} selected>${currency.id} - ${currency.currencyName}</option>`;
-				_("#to-currency").innerHTML += `<option value=${currency.id}>${currency.id} - ${currency.currencyName}</option>`;
+				_("#from-currency").innerHTML += `<option value=${currency.code} selected>${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
+				_("#to-currency").innerHTML += `<option value=${currency.code}>${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
 			}
-			else if(currency.id == "NGN")
+			else if(currency.code == "NGN")
 			{
-				_("#from-currency").innerHTML += `<option value=${currency.id} >${currency.id} - ${currency.currencyName}</option>`;
-				_("#to-currency").innerHTML += `<option value=${currency.id} selected>${currency.id} - ${currency.currencyName}</option>`;
+				_("#from-currency").innerHTML += `<option value=${currency.code} >${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
+				_("#to-currency").innerHTML += `<option value=${currency.code} selected>${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
 			}
 			else
 			{
-				_("#from-currency").innerHTML += `<option value=${currency.id}>${currency.id} - ${currency.currencyName}</option>`;
-				_("#to-currency").innerHTML += `<option value=${currency.id}>${currency.id} - ${currency.currencyName}</option>`;
+				_("#from-currency").innerHTML += `<option value=${currency.code}>${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
+				_("#to-currency").innerHTML += `<option value=${currency.code}>${currency.code} ~ ${(currency.description).toUpperCase()}</option>`;
 			}
 		}
 	})
@@ -39,8 +38,8 @@ const getOtherInfoAPI = function(fromID,toID,amount)
 {
 	_("#loader-wrapper").style.display = "flex";
 	const conversion = [1,5,10,25,50,100,500,1000,5000,10000,50000];
-	let query = fromID+"_"+toID;
-	const API_URL_CONVERT = 'https://free.currconv.com/api/v7/convert?q='+query+'&compact=ultra&apiKey=e0e36f9592f91d861b6d';
+	let query = "from="+fromID+"&to="+toID+"&amount="+amount;
+	const API_URL_CONVERT = 'https://api.exchangerate.host/convert?'+query;
 	fetch(API_URL_CONVERT)
 	.then( response =>response.json())
 	.then((data)=>{
@@ -49,10 +48,10 @@ const getOtherInfoAPI = function(fromID,toID,amount)
 		_("#cont-output").style.display = "flex";
 		_("#cont-further-info").style.display = "flex";
 		_("#from").textContent = `${amount.toLocaleString()} ${fromID}`;
-		_("#to").textContent = `${(amount * data[query]).toLocaleString()} ${toID}`;
+		_("#to").textContent = `${(data.result).toLocaleString()} ${toID}`;
 		for(let item of conversion)
 		{
-			_("#conversion-info").innerHTML += `<div class='info-item'><span style='text-align:left'>${item.toLocaleString()} ${fromID}</span><span style='text-align:right'>${Number((item * data[query]).toFixed(2)).toLocaleString()} ${toID}</span></div>`;
+			_("#conversion-info").innerHTML += `<div class='info-item'><span style='text-align:left'>${item.toLocaleString()} ${fromID}</span><span style='text-align:right'>${(item * data.result).toLocaleString()} ${toID}</span></div>`;
 		}
 	})
 	.catch((error)=>{
@@ -93,8 +92,8 @@ _("#btn-convert").addEventListener("click", ()=>{
 	const selected = document.querySelectorAll("select");
 	let fromCurrency = selected[0].options[selected[0].selectedIndex].text;
 	let toCurrency = selected[1].options[selected[1].selectedIndex].text;
-	fromCurrency = fromCurrency.split("-");
-	toCurrency = toCurrency.split("-");
+	fromCurrency = fromCurrency.split("~");
+	toCurrency = toCurrency.split("~");
 
 	let amount = Number(_("#amount").value);
 	_("#conversion-info").innerHTML = "";
